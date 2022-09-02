@@ -1,6 +1,6 @@
 import { Express } from "express";
 
-import healthCheckRouter from "../features/healthCheck/router";
+import healthCheckRouter from "../api/healthCheck/router";
 
 const attachRouters = (app: Express): void => {
   app.use(healthCheckRouter);
