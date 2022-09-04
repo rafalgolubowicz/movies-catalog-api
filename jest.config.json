@@ -1,0 +1,7 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testRegex": "((\\.|/*.)(spec))\\.ts?$",
+  "globalSetup": "./src/setup/jest/globalSetup.ts",
+  "globalTeardown": "./src/setup/jest/globalTeardown.ts"
+}

@@ -26,3 +26,7 @@ const retrieveEnvVariable = (
 
 export const SERVER_PORT = retrieveEnvVariable("SERVER_PORT", true);
 export const CORS_ORIGIN = retrieveEnvVariable("CORS_ORIGIN", false);
+export const DB_FILE = retrieveEnvVariable(
+  "DATABASE_FILE_PATH",
+  false
+);
