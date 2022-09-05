@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
+import parseQueryParamToArray from "../../utils/parseQueryParamToArray";
+
 import { findMovies } from "./service";
 import { GetMoviesListRequestQueryParams } from "./types";
 import { sortMoviesByMatchedGenres } from "./utils";
@@ -15,13 +17,10 @@ export const getMovies = async (
   next: NextFunction
 ) => {
   const { duration } = req.query;
-  const genres =
-    typeof req.query.genres === "string"
-      ? [req.query.genres]
-      : req.query.genres || [];
+  const genres = parseQueryParamToArray(req.query.genres);
 
   const movies = await findMovies({
-    genres: typeof genres === "string" ? [genres] : genres || [],
+    genres,
     minRuntime: parseInt(duration) - 10,
     maxRuntime: parseInt(duration) + 10
   });
