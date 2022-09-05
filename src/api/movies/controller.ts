@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 
 import parseQueryParamToArray from "../../utils/parseQueryParamToArray";
 
@@ -7,26 +8,29 @@ import { GetMoviesListRequestQueryParams } from "./types";
 import { sortMoviesByMatchedGenres } from "./utils";
 
 export const getMovies = async (
-  req: Request<
+  request: Request<
     unknown,
     unknown,
     unknown,
     GetMoviesListRequestQueryParams
   >,
-  res: Response,
+  response: Response,
   next: NextFunction
 ) => {
-  const { duration } = req.query;
-  const genres = parseQueryParamToArray(req.query.genres);
+  try {
+    const { duration } = request.query;
+    const genres = parseQueryParamToArray(request.query.genres);
 
-  const movies = await findMovies({
-    genres,
-    minRuntime: parseInt(duration) - 10,
-    maxRuntime: parseInt(duration) + 10
-  });
+    const movies = await findMovies({
+      genres,
+      minRuntime: parseInt(duration) - 10,
+      maxRuntime: parseInt(duration) + 10
+    });
 
-  const sortedByGenres = sortMoviesByMatchedGenres(movies, genres);
+    const sortedByGenres = sortMoviesByMatchedGenres(movies, genres);
 
-  res.status(200).send(sortedByGenres);
-  next();
+    return response.status(StatusCodes.OK).send(sortedByGenres);
+  } catch (error) {
+    return next(error);
+  }
 };

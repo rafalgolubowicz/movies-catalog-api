@@ -1,13 +1,12 @@
-import cors from "cors";
-import express, { Express } from "express";
-import helmet from "helmet";
+import { ErrorMiddleware, Express, Middleware } from "express";
 
-import { CORS_ORIGIN } from "../setup/environment";
-
-const attachMiddlewares = (app: Express): void => {
-  app.use(helmet());
-  app.use(express.json());
-  app.use(cors({ origin: CORS_ORIGIN }));
+const attachMiddlewares = <T extends Middleware | ErrorMiddleware>(
+  app: Express,
+  middlewares: T[]
+): void => {
+  for (const middleware of middlewares) {
+    app.use(middleware);
+  }
 };
 
 export default attachMiddlewares;

@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 
+import logger from "../utils/logger";
+
 dotenv.config();
 
 const retrieveEnvVariable = (
@@ -16,7 +18,7 @@ const retrieveEnvVariable = (
   }
 
   if (!value) {
-    console.warn(`Missing environment variable - ${name}`);
+    logger.warn(`Missing environment variable - ${name}`);
 
     return "";
   }
