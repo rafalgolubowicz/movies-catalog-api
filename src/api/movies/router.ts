@@ -14,7 +14,7 @@ const moviesRouter = Router();
  *  get:
  *     tags:
  *     - Movies
- *     description: Responds if the app is up and running
+ *     description: Returns movies based on passed params
  *     responses:
  *       200:
  *         description: Array of movies
