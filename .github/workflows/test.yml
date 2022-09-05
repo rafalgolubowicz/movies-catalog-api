@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  SERVER_PORT: ${{ secrets.SERVER_PORT }}
+  CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+  DATABASE_FILE_PATH: ${{ secrets.DATABASE_FILE_PATH }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
