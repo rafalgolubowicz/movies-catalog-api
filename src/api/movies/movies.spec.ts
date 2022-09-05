@@ -1,4 +1,7 @@
+import { Movie } from "../../setup/database/types";
+
 import { findMovies } from "./service";
+import { sortMoviesByMatchedGenres } from "./utils";
 
 describe("Movies service test suite", () => {
   it("should returns a single random movie", async () => {
@@ -51,5 +54,45 @@ describe("Movies service test suite", () => {
 
       expect(intersection.length).toBeGreaterThan(0);
     }
+  });
+
+  it("should sort movie list by matched genres", async () => {
+    const genres = ["Comedy", "Fantasy", "Crime"];
+    const movies = [
+      {
+        id: 1,
+        genres: ["Comedy"]
+      },
+      {
+        id: 2,
+        genres: ["Fantasy", "Comedy", "Biography"]
+      },
+      {
+        id: 3,
+        genres: ["Adventure", "Biography"]
+      },
+      {
+        id: 4,
+        genres: ["Adventure", "Comedy", "Biography"]
+      },
+      {
+        id: 5,
+        genres: ["Crime", "Comedy", "Adventure"]
+      },
+      {
+        id: 6,
+        genres: ["Comedy", "Crime", "Biography", "Fantasy"]
+      }
+    ] as Movie[]; // Cast to Movie[], so we don't need to add unnecessary properties
+    const expectedResult = [6, 2, 5, 1, 4, 3];
+
+    const sortedMovies = sortMoviesByMatchedGenres(
+      movies,
+      genres
+    ).map((movie) => movie.id);
+
+    expect(sortedMovies).toEqual(
+      expect.arrayContaining(expectedResult)
+    );
   });
 });

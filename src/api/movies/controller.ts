@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 import { findMovies } from "./service";
 import { GetMoviesListRequestQueryParams } from "./types";
+import { sortMoviesByMatchedGenres } from "./utils";
 
 export const getMovies = async (
   req: Request<
@@ -13,7 +14,11 @@ export const getMovies = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { duration, genres = [] } = req.query;
+  const { duration } = req.query;
+  const genres =
+    typeof req.query.genres === "string"
+      ? [req.query.genres]
+      : req.query.genres || [];
 
   const movies = await findMovies({
     genres: typeof genres === "string" ? [genres] : genres || [],
@@ -21,8 +26,8 @@ export const getMovies = async (
     maxRuntime: parseInt(duration) + 10
   });
 
-  // TODO: Sort movies by a number of genres that match
+  const sortedByGenres = sortMoviesByMatchedGenres(movies, genres);
 
-  res.status(200).send(movies);
+  res.status(200).send(sortedByGenres);
   next();
 };
