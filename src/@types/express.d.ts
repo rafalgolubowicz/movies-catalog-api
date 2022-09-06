@@ -5,6 +5,7 @@ import { ZodIssue } from "zod";
 import { ErrorCode } from "../setup/consts";
 
 declare module "express" {
+  // TODO: Add openapi comment to create schema
   export type ApiError = {
     httpCode?: StatusCodes;
     errorCode?: ErrorCode;
