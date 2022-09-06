@@ -22,17 +22,14 @@ const validateRequest =
           message: "ValidatorError",
           errorCode: ErrorCode.VALIDATION_ERRORS,
           httpCode: StatusCodes.BAD_REQUEST,
-          validationErrors: error.errors
+          validationErrors: error.errors,
+          isOperational: true
         };
 
-        return response
-          .status(StatusCodes.BAD_REQUEST)
-          .send(validationError);
+        return next(validationError);
       }
 
-      return response
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send(error);
+      next(error);
     }
   };
 

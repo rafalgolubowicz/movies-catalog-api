@@ -8,7 +8,11 @@ const errorLogger: ErrorMiddleware = (
   _response,
   next
 ) => {
-  logger.error(error.stack);
+  if (error.isOperational) {
+    logger.info(error);
+  } else {
+    logger.error(error.stack);
+  }
 
   next(error);
 };

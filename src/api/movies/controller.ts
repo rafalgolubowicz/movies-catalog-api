@@ -31,6 +31,7 @@ export const getMovies = async (
 
     return response.status(StatusCodes.OK).send(sortedByGenres);
   } catch (error) {
+    // TODO: Add checks for specifics cases to pass more descriptive error
     return next(error);
   }
 };

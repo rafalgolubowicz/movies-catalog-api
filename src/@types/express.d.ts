@@ -11,6 +11,7 @@ declare module "express" {
     name?: string;
     message?: string;
     validationErrors?: ZodIssue[];
+    isOperational?: boolean;
   };
 
   export type Middleware = (
