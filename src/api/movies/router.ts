@@ -18,6 +18,14 @@ const moviesRouter = Router();
  *     responses:
  *       200:
  *         description: Array of movies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Movie'
+ *       400:
+ *         description: Passed query params are in the wrong format
  *     parameters:
  *       - in: query
  *         name: duration
