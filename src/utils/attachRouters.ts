@@ -1,11 +1,9 @@
-import { Express } from "express";
+import { Express, Router } from "express";
 
-import healthCheckRouter from "../api/healthCheck/router";
-import moviesRouter from "../api/movies/router";
-
-const attachRouters = (app: Express): void => {
-  app.use(healthCheckRouter);
-  app.use(moviesRouter);
+const attachRouters = (app: Express, routers: Router[]): void => {
+  for (const router of routers) {
+    app.use(router);
+  }
 };
 
 export default attachRouters;

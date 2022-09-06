@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { Middleware } from "express";
+import { StatusCodes } from "http-status-codes";
 
 import { HealthCheckStatus } from "./consts";
 
-export const getSystemStatus = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction
+export const getSystemStatus: Middleware = async (
+  _request,
+  response
 ) => {
   const data = {
     uptime: process.uptime(),
@@ -13,6 +13,5 @@ export const getSystemStatus = async (
     timestamp: Date.now()
   };
 
-  res.status(200).send(data);
-  next();
+  return response.status(StatusCodes.OK).send(data);
 };
