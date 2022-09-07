@@ -8,7 +8,7 @@ import { Schema } from "./types";
 const dbFile =
   process.env.NODE_ENV === "test" ? TEST_DB_FILE : DB_FILE;
 
-const dbConfig = new Config(dbFile, true, false, "/");
+const dbConfig = new Config(dbFile, false, true, "/");
 const database = new JsonDB(dbConfig);
 
 const dbStructure = {
