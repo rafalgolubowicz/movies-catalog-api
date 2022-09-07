@@ -44,8 +44,8 @@ export const addMovie = async (
   );
 
   /*
-    It's not a best way how to define ID of new object that should be unique.
-    In a real-life, DB contains unique field validation, and auto-increment as well.
+    It's not the best way of defining ID of new object which should be unique.
+    In a real-life, DB contains unique field validation, and auto-increment option as well.
     For JSON purposes, the ID as a uuid would be a better solution.
   */
   const newId = lastMovie.id + 1;
