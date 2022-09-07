@@ -1,3 +1,3 @@
 export const MoviesEndpoints = {
-  LIST: "/movies"
+  Root: "/movies"
 };

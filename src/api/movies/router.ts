@@ -3,8 +3,8 @@ import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
 
 import { MoviesEndpoints } from "./consts";
-import { getMovies } from "./controller";
-import { getMoviesListSchema } from "./schema";
+import { createMovie, getMovies } from "./controller";
+import { createMovieSchema, getMoviesListSchema } from "./schema";
 
 const moviesRouter = Router();
 
@@ -39,9 +39,38 @@ const moviesRouter = Router();
  *             type: string
  */
 moviesRouter.get(
-  MoviesEndpoints.LIST,
+  MoviesEndpoints.Root,
   validateRequest(getMoviesListSchema),
   getMovies
+);
+
+/**
+ * @openapi
+ * /movies:
+ *  post:
+ *   tags:
+ *    - Movies
+ *   description: Create a new movie
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/components/schemas/CreateMovieInput'
+ *   responses:
+ *    201:
+ *     description: Created movie
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/Movie'
+ *    400:
+ *     description: Body contains errors
+ */
+moviesRouter.post(
+  MoviesEndpoints.Root,
+  validateRequest(createMovieSchema),
+  createMovie
 );
 
 export default moviesRouter;
