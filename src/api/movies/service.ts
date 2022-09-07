@@ -57,9 +57,9 @@ export const addMovie = async (
     runtime: data.runtime.toString(),
     title: data.title,
     year: data.year.toString(),
-    actors: data.actors,
-    plot: data.plot,
-    posterUrl: data.posterUrl
+    ...(data.actors ? { actors: data.actors } : {}),
+    ...(data.plot ? { plot: data.plot } : {}),
+    ...(data.posterUrl ? { posterUrl: data.posterUrl } : {})
   };
 
   await database.push(`${dbStructure.Movies}[]`, movieData);
